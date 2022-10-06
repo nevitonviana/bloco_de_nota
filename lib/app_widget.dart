@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'core/database/sqlite_adm_connection.dart';
+import 'core/ui/todo_list_ui_config.dart';
 import 'modules/auth/auth_module.dart';
 
 class AppWidget extends StatefulWidget {
@@ -29,6 +30,8 @@ class _AppWidgetState extends State<AppWidget> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Todo List provide",
+      theme: TodoListUiConfig.theme,
+      initialRoute: "/login",
       routes: {
         ...AuthModule().routes,
       },
