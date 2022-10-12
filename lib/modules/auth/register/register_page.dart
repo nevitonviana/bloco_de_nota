@@ -33,10 +33,7 @@ class _RegisterPageState extends State<RegisterPage> {
       if (success) {
         Navigator.of(context).pop();
       } else if (error != null && error.isNotEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(error),
-          backgroundColor: Colors.red,
-        ));
+
       }
     });
 

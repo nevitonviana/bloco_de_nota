@@ -146,6 +146,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  flutter_overlay_loader:
+    dependency: "direct main"
+    description:
+      name: flutter_overlay_loader
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   flutter_signin_button:
     dependency: "direct main"
     description:
@@ -323,7 +330,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.3"
+    version: "6.0.4"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -405,7 +412,7 @@ packages:
       name: validatorless
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.1"
+    version: "1.2.3"
   vector_math:
     dependency: transitive
     description:
