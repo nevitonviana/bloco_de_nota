@@ -11,7 +11,7 @@ class AuthModule extends TodoListModule {
       : super(
           bindings: [
             ChangeNotifierProvider(create: (_) => LoginController()),
-            ChangeNotifierProvider(create: (_) => RegisterController()),
+            ChangeNotifierProvider<RegisterController>(create: (context) => RegisterController(userServices: context.read())),
           ],
           routes: {
             '/login': (context) => const LoginPage(),

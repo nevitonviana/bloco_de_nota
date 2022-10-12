@@ -1,11 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:validatorless/validatorless.dart';
 
+import '../../../core/validators/validators.dart';
 import '../../../core/widget/todo_list_field.dart';
 import '../../../core/widget/todo_list_logo.dart';
 import '/core/ui/theme_extensions.dart';
+import 'register_controller.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailEC = TextEditingController();
+  final _passwordEC = TextEditingController();
+  final _confirmPasswordEC = TextEditingController();
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    final controller = context.read<RegisterController>();
+    context.read<RegisterController>().addListener(() {
+      var success = controller.success;
+      var error = controller.error;
+      if (success) {
+        Navigator.of(context).pop();
+      } else if (error != null && error.isNotEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(error),
+          backgroundColor: Colors.red,
+        ));
+      }
+    });
+
+  }
+
+  @override
+  void dispose() {
+    _emailEC.dispose();
+    _passwordEC.dispose();
+    _confirmPasswordEC.dispose();
+    super.dispose();
+    context.read<RegisterController>().removeListener(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +87,7 @@ class RegisterPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          Container(
+          SizedBox(
             height: MediaQuery.of(context).size.width * .5,
             child: const FittedBox(
               fit: BoxFit.fitHeight,
@@ -53,26 +97,52 @@ class RegisterPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
             child: Form(
+              key: _formKey,
               child: Column(
                 children: [
                   TodoListField(
+                    controller: _emailEC,
                     label: 'E-mail',
+                    validator: Validatorless.multiple([
+                      Validatorless.required("E-mail obrigatori"),
+                      Validatorless.email("E-mail invalid"),
+                    ]),
                   ),
                   const SizedBox(height: 20),
                   TodoListField(
+                    controller: _passwordEC,
                     label: 'Senha',
                     obscureText: true,
+                    validator: Validatorless.multiple([
+                      Validatorless.required("Senha obrigatoria"),
+                      Validatorless.min(
+                          6, "senha deve ter pelo menos 6 caracteres")
+                    ]),
                   ),
                   const SizedBox(height: 20),
                   TodoListField(
+                    controller: _confirmPasswordEC,
                     label: 'Confirma Senha',
                     obscureText: true,
+                    validator: Validatorless.multiple([
+                      Validatorless.required("Senha obrigatoria"),
+                      Validators.compare(
+                          _passwordEC, "senha diferente de confirmação"),
+                    ]),
                   ),
                   const SizedBox(height: 20),
                   Align(
                     alignment: Alignment.bottomRight,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        final formValid =
+                            _formKey.currentState?.validate() ?? false;
+                        if (formValid) {
+                          context
+                              .read<RegisterController>()
+                              .registerUser(_emailEC.text, _passwordEC.text);
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
