@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:validatorless/validatorless.dart';
 
+import '../../../core/notifier/default_listener_notifier.dart';
 import '../../../core/validators/validators.dart';
 import '../../../core/widget/todo_list_field.dart';
 import '../../../core/widget/todo_list_logo.dart';
@@ -21,22 +22,18 @@ class _RegisterPageState extends State<RegisterPage> {
   final _passwordEC = TextEditingController();
   final _confirmPasswordEC = TextEditingController();
 
-
-
   @override
   void initState() {
     super.initState();
-    final controller = context.read<RegisterController>();
-    context.read<RegisterController>().addListener(() {
-      var success = controller.success;
-      var error = controller.error;
-      if (success) {
+    final defaultListener = DefaultListenerNotifier(
+        changeNotifier: context.read<RegisterController>());
+    defaultListener.listener(
+      context: context,
+      successVoidCallback: (notifier, listenerNotifier) {
+        listenerNotifier.dispose();
         Navigator.of(context).pop();
-      } else if (error != null && error.isNotEmpty) {
-
-      }
-    });
-
+      },
+    );
   }
 
   @override
@@ -45,7 +42,6 @@ class _RegisterPageState extends State<RegisterPage> {
     _passwordEC.dispose();
     _confirmPasswordEC.dispose();
     super.dispose();
-    context.read<RegisterController>().removeListener(() {});
   }
 
   @override
