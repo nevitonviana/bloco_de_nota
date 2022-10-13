@@ -41,6 +41,10 @@ class UserRepositoryImpl implements UserRepository {
     } on PlatformException catch (e, s) {
       throw AuthException(massage: e.message ?? "error ao realiza o login");
     } on FirebaseAuthException catch (e, s) {
+      if (e.code == "wrong-password") {
+        throw AuthException(massage: "Email ou senha invalidos");
+      }
+
       throw AuthException(massage: e.message ?? "error ao realiza o login");
     }
   }
