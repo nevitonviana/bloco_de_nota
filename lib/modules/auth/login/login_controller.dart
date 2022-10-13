@@ -25,4 +25,11 @@ class LoginController extends DefaultChangeNotifier {
       notifyListeners();
     }
   }
+
+  void forgotPassword(String email){
+    showLoadingAndResetState();
+
+  }
+
+
 }

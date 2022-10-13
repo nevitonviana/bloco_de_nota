@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:validatorless/validatorless.dart';
 
 import '../../../core/notifier/default_listener_notifier.dart';
+import '../../../core/ui/messages.dart';
 import '../../../core/widget/todo_list_field.dart';
 import '../../../core/widget/todo_list_logo.dart';
 import 'login_controller.dart';
@@ -19,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _email = TextEditingController();
   final _password = TextEditingController();
+  final _emailFocus = FocusNode();
 
   @override
   void initState() {
@@ -65,6 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             TodoListField(
                               controller: _email,
+                              focusNode: _emailFocus,
                               validator: Validatorless.multiple([
                                 Validatorless.required("E-mail obrigatorio"),
                                 Validatorless.email("E-mail invalid"),
@@ -87,7 +90,17 @@ class _LoginPageState extends State<LoginPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    if (_email.text.isNotEmpty) {
+                                      context
+                                          .read<LoginController>()
+                                          .forgotPassword(_email.text);
+                                    } else {
+                                      _emailFocus.requestFocus();
+                                      Messages.of(context)
+                                          .showError("Didite seu E-Mail");
+                                    }
+                                  },
                                   child: const Text(" Esqueceu sua senha?"),
                                 ),
                                 ElevatedButton(
