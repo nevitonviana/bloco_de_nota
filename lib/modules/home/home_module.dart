@@ -3,7 +3,7 @@ import 'home_page.dart';
 
 class HomeModule extends TodoListModule {
   HomeModule()
-      : super(bindings: [], routes: {
+      : super(routes: {
           '/home': (context) => const HomePage(),
         });
 }
