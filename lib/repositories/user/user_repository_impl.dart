@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../exception/auth_exception.dart';
 import 'user_repository.dart';
@@ -66,5 +67,38 @@ class UserRepositoryImpl implements UserRepository {
     } on PlatformException catch (e) {
       throw AuthException(massage: "error ao resetar senha");
     }
+  }
+
+  @override
+  Future<User?> googleLogin() async {
+    List<String>? loginMethods;
+    try {
+      final googleSingIn = GoogleSignIn();
+      final googleUser = await googleSingIn.signIn();
+      if (googleUser != null) {
+        loginMethods =
+            await _firebaseAuth.fetchSignInMethodsForEmail(googleUser.email);
+        if (loginMethods.contains("password")) {
+          throw AuthException(massage: "E-mail ja ultilizado");
+        } else {
+          final googleAuth = await googleUser.authentication;
+          final firebaseCredential = GoogleAuthProvider.credential(
+              accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+          var userCredential =
+              await _firebaseAuth.signInWithCredential(firebaseCredential);
+          return userCredential.user;
+        }
+      }
+    } on FirebaseAuthException catch (e, s) {
+      if (e.code == "account-exists-with-different-credential ") {
+        throw AuthException(massage: '''
+        login invalido se resgistrou com os seguntis provides:
+        ${loginMethods?.join(',')}
+        ''');
+      } else {
+        throw AuthException(massage: "error ao realiza login");
+      }
+    }
+
   }
 }

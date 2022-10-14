@@ -20,4 +20,7 @@ class UserServicesImpl implements UserServices {
   @override
   Future<void> forgotPassword(String email) =>
       _userRepository.forgotPassword(email);
+
+  @override
+  Future<User?> googleLogin() => _userRepository.googleLogin();
 }
