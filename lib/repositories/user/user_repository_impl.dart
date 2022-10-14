@@ -99,6 +99,11 @@ class UserRepositoryImpl implements UserRepository {
         throw AuthException(massage: "error ao realiza login");
       }
     }
+  }
 
+  @override
+  Future<void> googleLogout() async {
+    await GoogleSignIn().signOut();
+    _firebaseAuth.signOut();
   }
 }
