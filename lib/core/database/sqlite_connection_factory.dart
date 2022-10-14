@@ -1,8 +1,12 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+// ignore: depend_on_referenced_packages
 import 'package:synchronized/synchronized.dart';
 import 'package:todo_list/core/database/sqlite_migration_factory.dart';
 
+// ignore: duplicate_ignore
 class SqliteConnectionFactory {
   static const _VERSION = 1;
   static const _DATABASE_NAME = "TODO_LIST";
