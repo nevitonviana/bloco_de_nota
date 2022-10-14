@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/auth/auth_provider.dart';
 import '../../../core/ui/messages.dart';
+import '../../../services/user/user_services.dart';
 import '/core/ui/theme_extensions.dart';
 
 class HomeDrawer extends StatelessWidget {
@@ -65,6 +67,13 @@ class HomeDrawer extends StatelessWidget {
                         onPressed: () {
                           if (nameVN.value.isEmpty) {
                             Messages.of(context).showError("Name OBrigatorio");
+                          } else {
+                            Loader.show(context);
+                            context
+                                .read<UserServices>()
+                                .updateDisplayName(nameVN.value);
+                            Loader.hide();
+                            Navigator.of(context).pop();
                           }
                         },
                         child: const Text("Salvar")),
