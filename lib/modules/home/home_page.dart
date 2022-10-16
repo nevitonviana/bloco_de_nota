@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '/core/ui/theme_extensions.dart';
 import 'widget/home_drawer.dart';
 import 'widget/home_header.dart';
+import 'widget/todo_card_filter.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -39,7 +40,9 @@ class HomePage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
                         HomeHeader(),
-                      ]),
+                        TodoCardFilter(),
+
+                      ],),
                 ),
               ),
             ),
