@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '/core/ui/theme_extensions.dart';
 import 'widget/home_drawer.dart';
 import 'widget/home_header.dart';
+import 'widget/home_week_filter.dart';
 import 'widget/todo_card_filter.dart';
 
 class HomePage extends StatelessWidget {
@@ -37,12 +38,13 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: IntrinsicHeight(
                   child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        HomeHeader(),
-                        TodoCardFilter(),
-
-                      ],),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      HomeHeader(),
+                      TodoCardFilter(),
+                      HomeWeekFilter(),
+                    ],
+                  ),
                 ),
               ),
             ),
