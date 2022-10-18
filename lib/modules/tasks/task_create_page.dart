@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:validatorless/validatorless.dart';
 
 import '../../core/widget/todo_list_field.dart';
 import '/core/ui/theme_extensions.dart';
@@ -6,7 +7,8 @@ import 'task_create_controller.dart';
 import 'widget/calendar_button.dart';
 
 class TaskCreatePage extends StatelessWidget {
-  TaskCreateController _controller;
+  final TaskCreateController _controller;
+  final _descriptionEc = TextEditingController();
 
   TaskCreatePage({Key? key, required TaskCreateController controller})
       : _controller = controller,
@@ -54,10 +56,14 @@ class TaskCreatePage extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               TodoListField(
+                controller: _descriptionEc,
+                validator: Validatorless.required("Descrição é obrigatorio"),
                 label: '',
               ),
               const SizedBox(height: 20),
-              const CalendarButton(),
+              const CalendarButton(
+
+              ),
             ],
           ),
         ),

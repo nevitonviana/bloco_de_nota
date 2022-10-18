@@ -7,24 +7,37 @@ class CalendarButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.green),
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(Icons.today_outlined),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            "SELECIONE UMA DATA",
-            style: context.titleStyle,
-          ),
-        ],
+    return InkWell(
+      onTap: () async {
+        var lastDate = DateTime.now();
+        lastDate = lastDate.add(const Duration(days: 10 * 365));
+        final DateTime? selectedDate = await showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2000),
+            lastDate: lastDate);
+
+      },
+      borderRadius: BorderRadius.circular(30),
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.green),
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.today_outlined),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              "SELECIONE UMA DATA",
+              style: context.titleStyle,
+            ),
+          ],
+        ),
       ),
     );
   }
