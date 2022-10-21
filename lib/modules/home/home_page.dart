@@ -72,7 +72,7 @@ class HomePage extends StatelessWidget {
                     children: const [
                       HomeHeader(),
                       // HomeFilters(),
-                      TodoCardFilter(),
+                      // TodoCardFilter(),
                       HomeWeekFilter(),
                       HomeTasks(),
                     ],

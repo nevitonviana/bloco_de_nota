@@ -22,9 +22,9 @@ class Task extends StatelessWidget {
             onChanged: (value) {},
           ),
           title: const Text(
-            "DEscriçaõ",
+            "dani",
             style: TextStyle(
-              decoration: true ? TextDecoration.lineThrough : null,
+              decoration: false ? TextDecoration.lineThrough : null,
             ),
           ),
           subtitle: const Text(
