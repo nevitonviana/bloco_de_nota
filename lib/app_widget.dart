@@ -37,13 +37,13 @@ class _AppWidgetState extends State<AppWidget> {
       title: "Todo List provide",
       theme: TodoListUiConfig.theme,
       navigatorKey: TodoListNavigator.navigatorKey,
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale("pt", "BR"),
-      ],
+      // localizationsDelegates: const [
+      //   GlobalMaterialLocalizations.delegate,
+      //   GlobalWidgetsLocalizations.delegate,
+      // ],
+      // supportedLocales: const [
+      //   Locale("pt", "BR"),
+      // ],
       routes: {
         ...AuthModule().routes,
         ...HomeModule().routes,

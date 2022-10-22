@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../models/task_filter_enum.dart';
+import '../../../models/total_tasks_model.dart';
+import '../home_controller.dart';
 import '/core/ui/theme_extensions.dart';
 import 'todo_card_filter.dart';
 
-class HomeFilters extends StatefulWidget {
+class HomeFilters extends StatelessWidget {
   const HomeFilters({Key? key}) : super(key: key);
 
-  @override
-  State<HomeFilters> createState() => _HomeFiltersState();
-}
-
-class _HomeFiltersState extends State<HomeFilters> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,11 +23,32 @@ class _HomeFiltersState extends State<HomeFilters> {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: const [
-              TodoCardFilter(),
-              TodoCardFilter(),
-              TodoCardFilter(),
-              TodoCardFilter(),
+            children: [
+              TodoCardFilter(
+                label: 'Hoje',
+                taskFilter: TaskFilterEnum.today,
+                totalTaskModel:
+                    TotalTaskModel(totalTasksFinish: 10, totalTask: 5),
+                selected: context.select<HomeController, TaskFilterEnum>(
+                        (value) => value.filterSelected) ==
+                    TaskFilterEnum.today,
+              ),
+              TodoCardFilter(
+                  label: 'Hoje',
+                  taskFilter: TaskFilterEnum.tomorrow,
+                  totalTaskModel:
+                      TotalTaskModel(totalTasksFinish: 5, totalTask: 5),
+                  selected: context.select<HomeController, TaskFilterEnum>(
+                          (value) => value.filterSelected) ==
+                      TaskFilterEnum.tomorrow),
+              TodoCardFilter(
+                  label: 'Hoje',
+                  taskFilter: TaskFilterEnum.week,
+                  totalTaskModel:
+                      TotalTaskModel(totalTasksFinish: 15, totalTask: 5),
+                  selected: context.select<HomeController, TaskFilterEnum>(
+                          (value) => value.filterSelected) ==
+                      TaskFilterEnum.week),
             ],
           ),
         )

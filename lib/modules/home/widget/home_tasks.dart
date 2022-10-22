@@ -7,25 +7,23 @@ class HomeTasks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 20),
-          const Text("TASK\'S DE HOME"),
-          Column(
-            children: const [
-              Task(),
-              Task(),
-              Task(),
-              Task(),
-              Task(),
-              Task(),
-              Task(),
-            ],
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 20),
+        const Text("TASK\'S DE HOME"),
+        Column(
+          children: [
+            Task(),
+            Task(),
+            Task(),
+            Task(),
+            Task(),
+            Task(),
+            Task(),
+          ],
+        ),
+      ],
     );
   }
 }
