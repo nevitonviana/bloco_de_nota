@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/notifier/default_listener_notifier.dart';
+import '../../models/task_filter_enum.dart';
 import '../tasks/tasks_module.dart';
 import '/core/ui/theme_extensions.dart';
 import 'home_controller.dart';
@@ -23,8 +25,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void _goToCreateTask(BuildContext context) {
-    Navigator.of(context).push(
+  Future<void> _goToCreateTask(BuildContext context) async {
+    await Navigator.of(context).push(
       PageRouteBuilder(
         transitionDuration: const Duration(
           milliseconds: 400,
@@ -42,12 +44,21 @@ class _HomePageState extends State<HomePage> {
             TasksModule().getPage('/task/create', context),
       ),
     );
+    widget._homeController.refreshPage();
   }
 
   @override
   void initState() {
     super.initState();
-    widget._homeController.loadTotalTasks();
+    DefaultListenerNotifier(changeNotifier: widget._homeController).listener(
+      context: context,
+      successVoidCallback: (notifier, listenerNotifier) =>
+          listenerNotifier.dispose(),
+    );
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      widget._homeController.loadTotalTasks();
+      widget._homeController.findTasks(filter: TaskFilterEnum.today);
+    });
   }
 
   @override

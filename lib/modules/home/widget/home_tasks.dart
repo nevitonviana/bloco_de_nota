@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../models/task_model.dart';
+import '/models/task_filter_enum.dart';
+import '../home_controller.dart';
 import 'task.dart';
 
 class HomeTasks extends StatelessWidget {
@@ -11,17 +15,19 @@ class HomeTasks extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 20),
-        const Text("TASK\'S DE HOME"),
+        Selector<HomeController, String>(
+          selector: (context, controller) =>
+              controller.filterSelected.description,
+          builder: (context, value, child) => Text("TASK\'S DE $value"),
+        ),
         Column(
-          children: [
-            Task(),
-            Task(),
-            Task(),
-            Task(),
-            Task(),
-            Task(),
-            Task(),
-          ],
+          children: context
+              .select<HomeController, List<TaskModel>>(
+                  (value) => value.filteredTasks)
+              .map((e) => Task(
+                    model: e,
+                  ))
+              .toList(),
         ),
       ],
     );

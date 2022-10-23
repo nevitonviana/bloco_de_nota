@@ -15,7 +15,7 @@ class TaskModel {
     return TaskModel(
         id: task['id'],
         description: task['descricao'],
-        dateTime: task["data_hora"],
+        dateTime: task["data_hora"] ,
         finished: task['finalizado'] == 1);
   }
 }
