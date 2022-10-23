@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'core/database/sqlite_adm_connection.dart';
 import 'core/navigator/todo_list_navigator.dart';

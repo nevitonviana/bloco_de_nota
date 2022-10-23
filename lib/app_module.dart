@@ -5,7 +5,6 @@ import 'package:todo_list/core/database/sqlite_connection_factory.dart';
 
 import 'app_widget.dart';
 import 'core/auth/auth_provider.dart';
-import 'core/database/sqlite_migration_factory.dart';
 import 'repositories/user/user_repository.dart';
 import 'repositories/user/user_repository_impl.dart';
 import 'services/user/user_services.dart';
