@@ -1,7 +1,7 @@
 class TaskModel {
   final int id;
   final String description;
-  final DateTime dateTime;
+  final String dateTime;
   final bool finished;
 
   TaskModel({

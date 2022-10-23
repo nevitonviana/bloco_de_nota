@@ -27,7 +27,7 @@ class TasksRepositoryImpl implements TasksRepository {
     final conn = await _sqliteConnectionFactory.openConnection();
     final result = await conn.rawQuery('''
     select * from todo
-    where data_hora ? and ?
+    where data_hora between ? and ?
     order by data_hora
     ''', [starFilter.toIso8601String(), endFilter.toIso8601String()]);
 

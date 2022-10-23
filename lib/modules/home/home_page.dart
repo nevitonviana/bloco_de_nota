@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../models/task_filter_enum.dart';
-import '../../models/total_tasks_model.dart';
 import '../tasks/tasks_module.dart';
 import '/core/ui/theme_extensions.dart';
 import 'home_controller.dart';
@@ -10,11 +8,21 @@ import 'widget/home_filters.dart';
 import 'widget/home_header.dart';
 import 'widget/home_tasks.dart';
 import 'widget/home_week_filter.dart';
-import 'widget/todo_card_filter.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  final HomeController _homeController;
 
+  const HomePage({
+    Key? key,
+    required HomeController homeController,
+  })  : _homeController = homeController,
+        super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   void _goToCreateTask(BuildContext context) {
     Navigator.of(context).push(
       PageRouteBuilder(
@@ -34,6 +42,12 @@ class HomePage extends StatelessWidget {
             TasksModule().getPage('/task/create', context),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    widget._homeController.loadTotalTasks();
   }
 
   @override
