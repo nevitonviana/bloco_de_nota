@@ -17,7 +17,7 @@ class HomeTasks extends StatelessWidget {
         const SizedBox(height: 20),
         Selector<HomeController, String>(
           selector: (context, controller) =>
-              controller.filterSelected.description,
+              controller.filterSelected.descriptions,
           builder: (context, value, child) => Text("TASK\'S DE $value"),
         ),
         Column(
