@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_list/modules/home/home_controller.dart';
 
 import '../../../models/task_model.dart';
 
@@ -25,7 +27,8 @@ class Task extends StatelessWidget {
           contentPadding: const EdgeInsets.all(8),
           leading: Checkbox(
             value: model.finished,
-            onChanged: (value) {},
+            onChanged: (value) =>
+                context.read<HomeController>().checkOrUncheckTask(model),
           ),
           title: Text(
             model.description,

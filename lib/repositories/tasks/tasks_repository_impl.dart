@@ -39,6 +39,6 @@ class TasksRepositoryImpl implements TasksRepository {
     final conn = await _sqliteConnectionFactory.openConnection();
     final finished = task.finished ? 1 : 0;
     await conn.rawQuery(
-        'update todo set finalizado ? where id = ?', [finished, task.id]);
+        'update todo set finalizado = ? where id = ?', [finished, task.id]);
   }
 }

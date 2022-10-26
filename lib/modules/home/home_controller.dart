@@ -95,4 +95,13 @@ class HomeController extends DefaultChangeNotifier {
     await loadTotalTasks();
     notifyListeners();
   }
+
+  Future<void> checkOrUncheckTask(TaskModel task) async {
+    showLoadingAndResetState();
+    notifyListeners();
+    final taskUpdate = task.copyWith(finished: !task.finished);
+    await _tasksService.checkOrUncheckTask(taskUpdate);
+    hideLoading();
+    refreshPage();
+  }
 }
